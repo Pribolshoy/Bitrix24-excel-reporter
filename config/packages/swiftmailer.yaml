@@ -1,0 +1,6 @@
+swiftmailer:
+    transport: 'sendmail'
+    host:                 localhost
+    port:                 false
+    auth_mode:            null
+

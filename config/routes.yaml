@@ -1,0 +1,7 @@
+index:
+   path: /
+   controller: App\Controller\AppController::index
+
+install:
+   path: /install
+   controller: App\Controller\AppController::install

@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}!{% endblock %}
+
+{% block body %}
+<style>
+.container h1 {
+    text-align: center;
+}
+</style>
+
+<div class="container">
+    <h1>Отчет! ✅</h1>
+
+    <p>Название отчета:	Отчет по лидам/сделкам без назначения следующего действия</p>
+    <p>Компания: {{ company }}</p>
+    <p>Дата: {{ date }}</p>
+    <p>Ссылка на документ: <a href="{{ file }}" target="_blank">{{ filename }}</a></p>
+    <table>
+        <thead>
+            <tr>
+                <td>Список лидов ({{ total_leads|length }}):</td>
+            </tr>
+            <tr>
+                <td>ID</td>
+                <td>Title</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% if detailed_info %}
+            {% for value in total_leads %}
+                {% set color = 'green' %}
+                {% if value.ID in unprocessed_leads_ids|keys %}
+                    {% set color = 'red' %}
+                {% endif %}
+                <tr style="background-color: {{ color }};">
+                    <td>{{ value.ID }}</td>
+                    <td>{{ value.TITLE }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <td>Список сделок ({{ total_deals|length }}):</td>
+            </tr>
+            <tr>
+                <td>ID</td>
+                <td>Title</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% if detailed_info %}
+            {% for value in total_deals %}
+                {% set color = 'green' %}
+                {% if value.ID in unprocessed_deals_ids|keys %}
+                    {% set color = 'red' %}
+                {% endif %}
+                <tr style="background-color: {{ color }};">
+                    <td>{{ value.ID }}</td>
+                    <td>{{ value.TITLE }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <td>Менеджеры ({{ managers|length }}):</td>
+            </tr>
+            <tr>
+                <td>ID</td>
+                <td>Имя</td>
+                <td>Email</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for value in managers %}
+
+            <tr>
+                <td>{{ value.ID }}</td>
+                <td>{{ value.NAME }}</td>
+                <td>{{ value.EMAIL }}</td>
+            </tr>
+            <tr>
+                <td>Всего лидов:</td>
+                <td colspan="2">{{ value.LEADS_TOTAL_COUNT }}</td>
+            </tr>
+            {% if detailed_info %}
+                {% for lead in value.LEADS_TOTAL %}
+                    {% set color = 'green' %}
+                    {% if lead.ID in unprocessed_leads_ids|keys %}
+                        {% set color = 'red' %}
+                    {% endif %}
+                    <tr>
+                        <td></td>
+                        <td style="background-color: {{ color }};">{{ lead.ID }}</td>
+                        <td style="background-color: {{ color }};">{{ lead.TITLE }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+
+            <tr>
+                <td>Всего Сделок:</td>
+                <td colspan="2">{{ value.DEALS_TOTAL_COUNT }}</td>
+            </tr>
+            {% if detailed_info %}
+                {% for deal in value.DEALS_TOTAL %}
+                    {% set color = 'green' %}
+                    {% if deal.ID in unprocessed_deals_ids|keys %}
+                        {% set color = 'red' %}
+                    {% endif %}
+                    <tr>
+                        <td></td>
+                        <td style="background-color: {{ color }};">{{ deal.ID }}</td>
+                        <td style="background-color: {{ color }};">{{ deal.TITLE }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            <tr>
+                <td colspan="3"></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
