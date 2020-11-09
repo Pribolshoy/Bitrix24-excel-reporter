@@ -15,6 +15,8 @@ class MailSender
 
     protected $filename;
 
+    protected $subject;
+
     public function __construct(ContainerInterface $container, \Swift_Mailer $Mailer)
     {
         $this->container = $container;
@@ -27,7 +29,13 @@ class MailSender
         }
 
         $to = explode(',', $this->container->getParameter('app.emails_to'));
-        $subject = $this->container->getParameter('app.email_subject');
+
+        if ($this->subject) {
+            $subject = $this->subject;
+        } else {
+            $subject = $this->container->getParameter('app.email_subject');
+        }
+        
 
         $message = (new \Swift_Message($subject))
             ->setFrom('report@kraust.ru')
@@ -55,5 +63,9 @@ class MailSender
 
     public function setFilename($filename) {
         $this->filename = $filename;
+    }
+
+    public function setSubject($subject) {
+        $this->subject = $subject;
     }
 }

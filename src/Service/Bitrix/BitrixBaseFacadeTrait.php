@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Service;
+namespace App\Service\Bitrix;
 
 
 use Symfony\Component\Config\Definition\Exception\Exception;

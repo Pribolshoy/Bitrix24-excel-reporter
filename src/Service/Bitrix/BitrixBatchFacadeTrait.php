@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Service;
+namespace App\Service\Bitrix;
 
 
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -48,7 +48,7 @@ trait BitrixBatchFacadeTrait
 
         $result = [];
         foreach ($requests_results as $items) {
-            $rows = \App\Service\ArrayHelper::index($items, 'ID');
+            $rows = \App\Service\Helpers\ArrayHelper::index($items, 'ID');
             $result = $result + $rows;
         }
 

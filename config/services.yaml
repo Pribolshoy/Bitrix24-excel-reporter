@@ -9,7 +9,8 @@ parameters:
     app.app_dir: '%kernel.project_dir%'
     app.files_dir: '%kernel.project_dir%/public/files'
     app.access_filename: 'access'
-    app.xlsx_name: 'report'
+    app.xlsx_name: 'report_unprocessed'
+    app.expired_xlsx_name: 'report_expired'
     app.emails_to: ''
     app.email_subject: 'Excel файл с лидами/сделками'
 

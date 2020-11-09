@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Service;
+namespace App\Service\Excel;
 
 
 use Symfony\Component\Config\Definition\Exception\Exception;
