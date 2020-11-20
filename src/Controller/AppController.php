@@ -79,8 +79,8 @@ class AppController extends AbstractController
         $managers_data = $this->bitrix_app->getUsers();
         $managers = ArrayHelper::index($managers_data['result'], 'ID');
         $managers = BitrixHelper::parseManagers($managers);
-        $managers = BitrixHelper::collectManagersAndLeads($managers, $LeadByDateHandler->get('total_leads'), $LeadByDateHandler->get('unprocessed_leads'));
-        $managers = BitrixHelper::collectManagersAndDeals($managers, $DealByDateHandler->get('total_deals'), $DealByDateHandler->get('unprocessed_deals'));
+        $managers = BitrixHelper::collectManagersAndLeads($managers, $LeadHandler->get('total_leads'), $LeadHandler->get('unprocessed_leads'));
+        $managers = BitrixHelper::collectManagersAndDeals($managers, $DealHandler->get('total_deals'), $DealHandler->get('unprocessed_deals'));
 
         // Сформировать эксель и сохранить
         $xlsx_config = [
@@ -148,7 +148,6 @@ class AppController extends AbstractController
         $LeadByDateHandler->setConfig($config);
         $LeadHandler->setConfig(['actual_date' => date(DATE_ATOM)]);
         $LeadByDateHandler->run();
-//        die();
         $LeadHandler->run();
 
         // Сделки
@@ -162,8 +161,8 @@ class AppController extends AbstractController
         $managers_data = $this->bitrix_app->getUsers();
         $managers = ArrayHelper::index($managers_data['result'], 'ID');
         $managers = BitrixHelper::parseManagers($managers);
-        $managers = BitrixHelper::collectManagersAndLeads($managers, $LeadByDateHandler->get('total_leads'), $LeadByDateHandler->get('expired_activity_leads'));
-        $managers = BitrixHelper::collectManagersAndDeals($managers, $DealByDateHandler->get('total_deals'), $DealByDateHandler->get('expired_activity_deals'));
+        $managers = BitrixHelper::collectManagersAndLeads($managers, $LeadHandler->get('total_leads'), $LeadHandler->get('expired_activity_leads'));
+        $managers = BitrixHelper::collectManagersAndDeals($managers, $DealHandler->get('total_deals'), $DealHandler->get('expired_activity_deals'));
 
         // Сформировать эксель и сохранить
         $xlsx_config = [
